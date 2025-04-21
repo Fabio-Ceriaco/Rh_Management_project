@@ -41,4 +41,23 @@ class ProfileController extends Controller
 
         return redirect()->back()->with('success', 'Password updated successfully');
     }
+
+    public function changeUserData(Request $request)
+    {
+        // form validation
+        $request->validate(
+            [
+                'name' => ['required', 'min:3', 'max:255'],
+                'email' => ['required', 'email', 'max:255', 'unique:users,email,' . Auth::id()],
+            ]
+        );
+
+        $user = Auth::user();
+
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->save();
+
+        return redirect()->back()->with('success_change_data', "User data updated successfully.");
+    }
 }
