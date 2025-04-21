@@ -1,5 +1,6 @@
 <x-layout-app page-title="Home">
 
-    <h1 class="text-center">{{ Auth::user()->name}} Home Page</h1>
-
+    @can('user_admin')
+        <h3 class="text-center mt-5">Admin is logged</h3>
+    @endcan
 </x-layout-app>
