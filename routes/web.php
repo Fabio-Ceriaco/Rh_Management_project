@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Department;
+use App\Models\User;
+use App\Models\UserDetail;
 use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -12,4 +15,10 @@ Route::get('/email', function () {
             ->from('rh@rh_management.com');
     });
     echo 'OK';
+});
+
+Route::get('/admin', function () {
+    $admin = User::with('detail', 'department')->find(1);
+
+    dd($admin->toArray());
 });
