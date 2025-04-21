@@ -3,7 +3,7 @@
     @can('user_admin')
         <a href="#" class=""><i class="fas fa-users me-3"></i>Colaborators</a>
         <a href="#" class=""><i class="fas fa-user-gear me-3"></i>RH Colaboraitors</a>
-        <a href="#" class=""><i class="fas fa-industry me-3"></i>Departments</a>
+        <a href="{{ route('departments')}}" class=""><i class="fas fa-industry me-3"></i>Departments</a>
     @endcan
     <hr>
     <a href="{{ route('user.profile')}}" class=""><i class="fas fa-gear me-3"></i>User Profile</a>
