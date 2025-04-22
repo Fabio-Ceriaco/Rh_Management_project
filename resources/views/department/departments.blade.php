@@ -26,7 +26,7 @@
                         <td>{{$department->name }}</td>
                         <td>
                             <div class="d-flex gap-3 justify-content-end">
-                                @if($department->id == 1)
+                                @if(in_array($department->id, [1, 2]))
                                     <i class="fa-solid fa-lock"></i>
                                 @else
                                     <a href="{{ route('edit.department', ['id' => Crypt::encryptString($department->id)])}}" class="btn btn-sm btn-outline-dark"><i class="fa-regular fa-pen-to-square me-2"></i>Edit</a>
