@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ProfileController;
+
 use Illuminate\Support\Facades\Route;
 
 
@@ -18,4 +19,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/departments', [DepartmentController::class, 'index'])->name('departments');
     Route::get('/departments/new-department', [DepartmentController::class, 'newDepartment'])->name('new.department');
     Route::post('/department/store-new-department', [DepartmentController::class, 'storeDepartment'])->name('store.department');
+    Route::get('/department/edit-department/{id}', [DepartmentController::class, 'editDepartment'])->name('edit.department');
+    Route::put('/department/update-department', [DepartmentController::class, 'updateDapartment'])->name('update.department');
+    Route::get('/department/delete-department/{id}', [DepartmentController::class, 'deleteDepartment'])->name('delete.department');
+    Route::get('/department/delete-department-confirm/{id}', [DepartmentController::class, 'deleteDepartmentConfirm'])->name('delete.department.confirm');
 });
