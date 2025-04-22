@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ConfirmAccountEmail;
 use App\Models\Department;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 
 class RhUserController extends Controller
 {
@@ -65,13 +68,15 @@ class RhUserController extends Controller
         if ($request->input('select_department') != 2) {
             return redirect()->route('home');
         }
+        // create user confirmation toke
+        $token = Str::random(64);
 
         // create new rh user
 
         $user = new User();
-
         $user->name = $request->input('name');
         $user->email = $request->input('email');
+        $user->confirmation_toke = $token;
         $user->role = 'rh';
         $user->department_id = $request->input('select_department');
         $user->permissions = '["rh"]';
@@ -87,6 +92,8 @@ class RhUserController extends Controller
             'salary' => $request->input('salary'),
             'admission_date' => $request->input('admission_date'),
         ]);
+        // send email to user
+        Mail::to($user->email)->send(new ConfirmAccountEmail(route('confirm-account', $token)));
 
         return redirect()->route('rhcollaborators')->with('success', 'Collaborator created successfully.');
     }
