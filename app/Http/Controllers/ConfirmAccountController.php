@@ -23,7 +23,7 @@ class ConfirmAccountController extends Controller
         return view('auth.confirm-account', ['user' => $user]);
     }
 
-    public function confirmAccountSubmit(Request $request)
+    public function confirmAccountSubmit(Request $request): View
     {
 
         // form validation
@@ -41,6 +41,6 @@ class ConfirmAccountController extends Controller
         $user->email_verified_at = Carbon::now();
         $user->save();
 
-        return redirect()->route('login');
+        return view('auth.welcome', ['user' => $user]);
     }
 }

@@ -17,23 +17,32 @@
 
             <table class="table" id="table">
                 <thead class="table-dark">
-                    <th>Name</th>
+                    <<th>Name</th>
                     <th>Email</th>
+                    <th>Active</th>
+                    <th>Department</th>
                     <th>Role</th>
-                    <th>Salary</th>
                     <th>Admission date</th>
-                    <th>City</th>
+                    <th>Selary</th>
                     <th></th>
                 </thead>
                 <tbody>
                     @foreach ($collaborators as $collaborator )
                     <tr>
-                        <td>{{$collaborator->name }}</td>
+                        <<td>{{$collaborator->name }}</td>
                         <td>{{$collaborator->email }}</td>
+                        <td>
+                            @empty($collaborator->email_verified_at)
+                                <span class="badge bg-danger">No</span>
+                            @else
+                                <span class="badge bg-success">Yes</span>
+                            @endif
+                        </td>
+                        <td>{{$collaborator->department->name }}</td>
                         <td>{{$collaborator->role }}</td>
-                        <td>{{ $collaborator->detail->salary }} €</td>
                         <td>{{$collaborator->detail->admission_date }}</td>
-                        <td>{{$collaborator->detail->city }}</td>
+                        <td>{{ $collaborator->detail->salary }} €</td>
+
                         <td>
                             <div class="d-flex gap-3 justify-content-end">
                                     <a href="{{ route('rhcollaborators.edit-collaborator', ['id' => Crypt::encryptString($collaborator->id)])}}" class="btn btn-sm btn-outline-dark ms-3"><i class="fa-regular fa-pen-to-square me-2"></i>Edit</a>
