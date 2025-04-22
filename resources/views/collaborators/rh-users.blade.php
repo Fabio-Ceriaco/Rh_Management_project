@@ -17,7 +17,7 @@
 
             <table class="table" id="table">
                 <thead class="table-dark">
-                    <<th>Name</th>
+                    <th>Name</th>
                     <th>Email</th>
                     <th>Active</th>
                     <th>Department</th>
