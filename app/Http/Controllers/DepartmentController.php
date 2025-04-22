@@ -31,7 +31,7 @@ class DepartmentController extends Controller
         }
     }
 
-    public function storeDepartment(Request $request)
+    public function storeDepartment(Request $request): RedirectResponse
     {
         if (Gate::allows('user_admin')) {
 
@@ -118,7 +118,7 @@ class DepartmentController extends Controller
         return view('department.delete-department-confirm', ['department' => $department]);
     }
 
-    public function deleteDepartmentConfirm($id)
+    public function deleteDepartmentConfirm($id): RedirectResponse
     {
         if (!Gate::allows('user_admin')) {
             abort(403, "You aren't authorized to access this page.");

@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ProfileController;
-
+use App\Http\Controllers\RhUserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -23,4 +23,9 @@ Route::middleware('auth')->group(function () {
     Route::put('/department/update-department', [DepartmentController::class, 'updateDapartment'])->name('update.department');
     Route::get('/department/delete-department/{id}', [DepartmentController::class, 'deleteDepartment'])->name('delete.department');
     Route::get('/department/delete-department-confirm/{id}', [DepartmentController::class, 'deleteDepartmentConfirm'])->name('delete.department.confirm');
+
+    // RH colaborators routes
+    Route::get('/rhcollaborators', [RhUserController::class, 'index'])->name('rhcollaborators');
+    Route::get('/rhcollaborators/new-collaborator', [RhUserController::class, 'newCollaborator'])->name('rhcollaborators.new-collaborator');
+    Route::post('/rhcollaborators/create-collaborator', [RhUserController::class, 'createCollaborator'])->name('rhcollaborators.create-collaborator');
 });
