@@ -6,6 +6,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RhUserController;
 use Illuminate\Support\Facades\Route;
 
+Route::middleware('guest')->group(function () {
+    // email confrimation and password definition
+    Route::get('/confim-account/{url}', [ConfirmAccountController::class, 'confirmAccount'])->name('confirm-account');
+    Route::post('/confim-account}', [ConfirmAccountController::class, 'confirmAccountSubmit'])->name('confirm-account-submit');
+});
 
 Route::middleware('auth')->group(function () {
     Route::redirect('/', 'home');
@@ -33,9 +38,4 @@ Route::middleware('auth')->group(function () {
     Route::put('/rhcollaborators/update-collaborator', [RhUserController::class, 'updateRhCollaborator'])->name('rhcollaborators.update-collaborator');
     Route::get('/rhcollaborators/delete-collaborator/{id}', [RhUserController::class, 'deleteRhCollaborator'])->name('rhcollaborators.delete-collaborator');
     Route::get('/rhcollaborators/delete-collaborator-confirm/{id}', [RhUserController::class, 'deleteRhCollaboratorConfirm'])->name('rhcollaborators.delete-collaborator-confirm');
-});
-
-Route::middleware('guest')->group(function () {
-    // email confrimation and password definition
-    Route::get('/confim-account/{url}', [ConfirmAccountController::class, 'confirmAccount'])->name('confirm-account');
 });

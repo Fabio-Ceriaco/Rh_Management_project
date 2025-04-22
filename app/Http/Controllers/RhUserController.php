@@ -76,7 +76,7 @@ class RhUserController extends Controller
         $user = new User();
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user->confirmation_toke = $token;
+        $user->confirmation_token = $token;
         $user->role = 'rh';
         $user->department_id = $request->input('select_department');
         $user->permissions = '["rh"]';
