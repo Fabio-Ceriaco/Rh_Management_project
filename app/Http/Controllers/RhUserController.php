@@ -6,6 +6,7 @@ use App\Models\Department;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
@@ -18,7 +19,8 @@ class RhUserController extends Controller
             abort(403, "You aren't authorized to access this page.");
         }
 
-        $collaborators = User::where('role', 'rh')->get();
+        $collaborators = User::with('detail')->where('role', 'rh')->get();
+
 
         return view('collaborators.rh-users', ['collaborators' => $collaborators]);
     }
@@ -87,5 +89,68 @@ class RhUserController extends Controller
         ]);
 
         return redirect()->route('rhcollaborators')->with('success', 'Collaborator created successfully.');
+    }
+
+    public function editRhCollaborator($id): View
+    {
+
+        if (!Gate::allows('user_admin')) {
+            abort(403, "You aren't authorized to access this page.");
+        }
+        $id = Crypt::decryptString($id);
+        $collaborator = User::with('detail')->where('role', 'rh')->findOrFail($id);
+
+        return view('collaborators.edit-rh-user', ['collaborator' => $collaborator]);
+    }
+
+    public function updateRhCollaborator(Request $request): RedirectResponse
+    {
+
+        if (!Gate::allows('user_admin')) {
+            abort(403, "You aren't authorized to access this page.");
+        }
+
+        // form validation
+
+        $request->validate(
+            [
+                'user_id' => ['required', 'exists:users,id'],
+                'salary' => ['required', 'decimal:2'],
+                'admission_date' => ['required', 'date_format:Y-m-d'],
+            ]
+        );
+
+        $user = User::findOrFail($request->input('user_id'));
+        $user->detail->salary = $request->input('salary');
+        $user->detail->admission_date = $request->input('admission_date');
+        $user->detail->save();
+
+        return redirect()->route('rhcollaborators')->with('success', "Collaborator updated successfully.");
+    }
+
+    public function deleteRhCollaborator($id): View
+    {
+
+        if (!Gate::allows('user_admin')) {
+            abort(403, "You aren't authorized to access this page.");
+        }
+        $id = Crypt::decryptString($id);
+        $collaborator = User::findOrFail($id);
+
+        return view('collaborators.delete-rh-user', ['collaborator' => $collaborator]);
+    }
+
+    public function deleteRhCollaboratorConfirm($id)
+    {
+
+        if (!Gate::allows('user_admin')) {
+            abort(403, "You aren't authorized to access this page.");
+        }
+        $id = Crypt::decryptString($id);
+        $collaborator = User::findOrFail($id);
+
+        $collaborator->delete();
+
+        return redirect()->route('rhcollaborators');
     }
 }

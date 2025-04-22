@@ -29,8 +29,8 @@
                                 @if(in_array($department->id, [1, 2]))
                                     <i class="fa-solid fa-lock"></i>
                                 @else
-                                    <a href="{{ route('edit.department', ['id' => Crypt::encryptString($department->id)])}}" class="btn btn-sm btn-outline-dark"><i class="fa-regular fa-pen-to-square me-2"></i>Edit</a>
-                                    <a href="{{ route('delete.department', ['id' => Crypt::encryptString($department->id)])}}" class="btn btn-sm btn-outline-dark"><i class="fa-regular fa-trash-can me-2"></i>Delete</a>
+                                    <a href="{{ route('edit.department', ['id' => Crypt::encryptString($department->id)])}}" class="btn btn-sm btn-outline-dark ms-3"><i class="fa-regular fa-pen-to-square me-2"></i>Edit</a>
+                                    <a href="{{ route('delete.department', ['id' => Crypt::encryptString($department->id)])}}" class="btn btn-sm btn-outline-dark ms-3"><i class="fa-regular fa-trash-can me-2"></i>Delete</a>
                                 @endif
                             </div>
                         </td>

@@ -15,11 +15,14 @@
                 <a href="{{ route('rhcollaborators.new-collaborator')}}" class="btn btn-primary">Create a new colaborator</a>
             </div>
 
-            <table class="table w-100" id="table">
+            <table class="table" id="table">
                 <thead class="table-dark">
                     <th>Name</th>
-                    <th>Email/th>
-                    <th>Permissions</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Salary</th>
+                    <th>Admission date</th>
+                    <th>City</th>
                     <th></th>
                 </thead>
                 <tbody>
@@ -27,16 +30,17 @@
                     <tr>
                         <td>{{$collaborator->name }}</td>
                         <td>{{$collaborator->email }}</td>
-                        @php
-                            $permissions = json_decode($collaborator->permissions);
-                        @endphp
-                        <td>{{ implode(",", $permissions)}}</td>
+                        <td>{{$collaborator->role }}</td>
+                        <td>{{ $collaborator->detail->salary }} €</td>
+                        <td>{{$collaborator->detail->admission_date }}</td>
+                        <td>{{$collaborator->detail->city }}</td>
                         <td>
                             <div class="d-flex gap-3 justify-content-end">
-                                    <a href="#" class="btn btn-sm btn-outline-dark"><i class="fa-regular fa-pen-to-square me-2"></i>Edit</a>
-                                    <a href="#" class="btn btn-sm btn-outline-dark"><i class="fa-regular fa-trash-can me-2"></i>Delete</a>
+                                    <a href="{{ route('rhcollaborators.edit-collaborator', ['id' => Crypt::encryptString($collaborator->id)])}}" class="btn btn-sm btn-outline-dark ms-3"><i class="fa-regular fa-pen-to-square me-2"></i>Edit</a>
+                                    <a href="{{ route('rhcollaborators.delete-collaborator', ['id' => Crypt::encryptString($collaborator->id) ])}}" class="btn btn-sm btn-outline-dark ms-3"><i class="fa-regular fa-trash-can me-2"></i>Delete</a>
                             </div>
                         </td>
+
                     </tr>
                     @endforeach
                 </tbody>
