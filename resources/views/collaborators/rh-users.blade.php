@@ -14,7 +14,6 @@
             <div class="mb-3">
                 <a href="{{ route('rhcollaborators.new-collaborator')}}" class="btn btn-primary">Create a new colaborator</a>
             </div>
-
             <table class="table" id="table">
                 <thead class="table-dark">
                     <th>Name</th>
@@ -29,7 +28,7 @@
                 <tbody>
                     @foreach ($collaborators as $collaborator )
                     <tr>
-                        <<td>{{$collaborator->name }}</td>
+                        <td>{{$collaborator->name }}</td>
                         <td>{{$collaborator->email }}</td>
                         <td>
                             @empty($collaborator->email_verified_at)
@@ -44,9 +43,15 @@
                         <td>{{ $collaborator->detail->salary }} €</td>
 
                         <td>
+
                             <div class="d-flex gap-3 justify-content-end">
-                                    <a href="{{ route('rhcollaborators.edit-collaborator', ['id' => Crypt::encryptString($collaborator->id)])}}" class="btn btn-sm btn-outline-dark ms-3"><i class="fa-regular fa-pen-to-square me-2"></i>Edit</a>
-                                    <a href="{{ route('rhcollaborators.delete-collaborator', ['id' => Crypt::encryptString($collaborator->id) ])}}" class="btn btn-sm btn-outline-dark ms-3"><i class="fa-regular fa-trash-can me-2"></i>Delete</a>
+
+                                    @empty($collaborator->deleted_at)
+                                        <a href="{{ route('rhcollaborators.edit-collaborator', ['id' => Crypt::encryptString($collaborator->id)])}}" class="btn btn-sm btn-outline-dark ms-3"><i class="fa-solid fa-pen-to-square me-2"></i>Edit</a>
+                                        <a href="{{ route('rhcollaborators.delete-collaborator', ['id' => Crypt::encryptString($collaborator->id) ])}}" class="btn btn-sm btn-outline-dark ms-3"><i class="fa-solid fa-trash-can me-2"></i>Delete</a>
+                                    @else
+                                        <a href="{{ route('rhcollaborators.restore', ['id' => Crypt::encryptString($collaborator->id) ])}}" class="btn btn-sm btn-outline-dark ms-3"><i class="fa-solid fa-trash-arrow-up me-2"></i>Restore</a>
+                                    @endif
                             </div>
                         </td>
 

@@ -39,10 +39,12 @@ Route::middleware('auth')->group(function () {
     Route::put('/rhcollaborators/update-collaborator', [RhUserController::class, 'updateRhCollaborator'])->name('rhcollaborators.update-collaborator');
     Route::get('/rhcollaborators/delete-collaborator/{id}', [RhUserController::class, 'deleteRhCollaborator'])->name('rhcollaborators.delete-collaborator');
     Route::get('/rhcollaborators/delete-collaborator-confirm/{id}', [RhUserController::class, 'deleteRhCollaboratorConfirm'])->name('rhcollaborators.delete-collaborator-confirm');
+    Route::get('/rhcollaborators/restore/{id}', [RhUserController::class, 'restoreRhCollaborator'])->name('rhcollaborators.restore');
 
     // collaborators
     Route::get('/collaborators', [CollaboratorsController::class, 'index'])->name('all-collaborators');
     Route::get('/collaborators/details/{id}', [CollaboratorsController::class, 'showDetails'])->name('collaborators-details');
     Route::get('/collaborators/delete/{id}', [CollaboratorsController::class, 'deleteCollaborator'])->name('collaborators-delete');
     Route::get('/collaborators/delete-confirm/{id}', [CollaboratorsController::class, 'deleteCollaboratorConfirm'])->name('collaborators-delete-confirm');
+    Route::get('/collaborators/restore/{id}', [CollaboratorsController::class, 'restoreCollaborator'])->name('collaborators.restore');
 });

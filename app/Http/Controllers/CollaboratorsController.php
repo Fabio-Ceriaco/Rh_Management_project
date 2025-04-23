@@ -19,7 +19,7 @@ class CollaboratorsController extends Controller
             abort(403, "You aren't authorized to access this page.");
         }
 
-        $collaborators = User::with('detail', 'department')->where('role', '<>', 'admin')->get();
+        $collaborators = User::withTrashed()->with('detail', 'department')->where('role', '<>', 'admin')->get();
 
         return view('collaborators.admin-all-collaborators')->with('collaborators', $collaborators);
     }
@@ -39,6 +39,11 @@ class CollaboratorsController extends Controller
         }
 
         $collaborator = User::with('detail', 'department')->where('id', $id)->first();
+
+        // check if collaborator exists
+        if (!$collaborator) {
+            abort(404);
+        }
 
         return view('collaborators.show-details')->with('collaborator', $collaborator);
     }
@@ -77,5 +82,19 @@ class CollaboratorsController extends Controller
         $collaborator->delete();
 
         return redirect()->route('all-collaborators');
+    }
+
+    public function restoreCollaborator($id)
+    {
+
+        if (!Gate::allows('user_admin')) {
+            abort(403, "You aren't authorized to access this page.");
+        }
+
+        $id = Crypt::decryptString($id);
+        $collaborator = User::withTrashed()->where('role', 'rh')->findOrFail($id);
+        $collaborator->restore();
+
+        return redirect()->route('all-collaborators')->with('success', 'Collaborator restored successfully.');
     }
 }

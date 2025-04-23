@@ -42,8 +42,13 @@
 
                             <td>
                                 <div class="d-flex gap-3 justify-content-end">
-                                        <a href="{{ route('collaborators-details', ['id' => Crypt::encryptString($collaborator->id)])}}" class="btn btn-sm btn-outline-dark ms-3"><i class="fa-solid fa-eye"></i>Details</a>
-                                        <a href="{{ route('collaborators-delete', ['id' => Crypt::encryptString($collaborator->id)])}}" class="btn btn-sm btn-outline-dark ms-3"><i class="fa-regular fa-trash-can me-2"></i>Delete</a>
+
+                                        @empty($collaborator->deleted_at)
+                                            <a href="{{ route('collaborators-details', ['id' => Crypt::encryptString($collaborator->id)])}}" class="btn btn-sm btn-outline-dark ms-3"><i class="fa-solid fa-eye"></i>Details</a>
+                                            <a href="{{ route('collaborators-delete', ['id' => Crypt::encryptString($collaborator->id)])}}" class="btn btn-sm btn-outline-dark ms-3"><i class="fa-solid fa-trash-can me-2"></i>Delete</a>
+                                        @else
+                                            <a href="{{ route('collaborators.restore', ['id' => Crypt::encryptString($collaborator->id)])}}" class="btn btn-sm btn-outline-dark ms-3"><i class="fa-solid fa-trash-arrow-up me-2"></i>Restore</a>
+                                        @endif
                                 </div>
                             </td>
 
