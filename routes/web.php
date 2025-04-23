@@ -23,7 +23,7 @@ Route::middleware('auth')->group(function () {
         } else if (auth()->user()->role == 'rh') {
             return redirect()->route('rhcollaborators.managementHome');
         } else {
-            die('home page normal collaborators');
+            return redirect()->route('collaborator');
         }
     })->name('home');
 
@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/profile', [ProfileController::class, 'index'])->name('user.profile');
     Route::put('/user/profile/update-password', [ProfileController::class, 'changePassword'])->name('change.password');
     Route::put('/user/profile/update-user-data', [ProfileController::class, 'changeUserData'])->name('change.userdata');
+    Route::put('/user/profile/update-user-address', [ProfileController::class, 'changeUserAddress'])->name('change.useraddress');
 
     //departments
     Route::get('/departments', [DepartmentController::class, 'index'])->name('departments');
@@ -71,4 +72,7 @@ Route::middleware('auth')->group(function () {
 
     // admin routes
     Route::get('/admin/home', [AdminController::class, 'home'])->name('admin.home');
+
+    // collaborator routes
+    Route::get('/collaborator', [CollaboratorsController::class, 'home'])->name('collaborator');
 });

@@ -38,15 +38,20 @@
                 <div class="col">
                     <p>Address: <strong>{{$collaborator->detail->address}}</strong></p>
                     <p>Zip code: <strong>{{$collaborator->detail->zip_code}}</strong></p>
-                    <p>City: <strong>{{$collaborator->detail->address}}</strong></p>
+                    <p>City: <strong>{{$collaborator->detail->city}}</strong></p>
                     <p>Phone: <strong>{{$collaborator->detail->phone}}</strong></p>
                     <p>Admission date: <strong>{{$collaborator->detail->admission_date}}</strong></p>
                     <p>Salary: <strong>{{$collaborator->detail->salary}} €</strong></p>
                 </div>
             </div>
         </div>
+        @can('user_admin')
+            <button class="btn btn-outline-dark" onclick="window.history.back()"><i class="fas fa-arrow-left me-2"></i>Back</button>
+        @endcan
+        @can('user_rh')
+            <button class="btn btn-outline-dark" onclick="window.history.back()"><i class="fas fa-arrow-left me-2"></i>Back</button>
+        @endcan
 
-        <button class="btn btn-outline-dark" onclick="window.history.back()"><i class="fas fa-arrow-left me-2"></i>Back</button>
 
     </div>
 

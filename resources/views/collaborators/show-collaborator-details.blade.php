@@ -38,7 +38,7 @@
                 <div class="col">
                     <p>Address: <strong>{{$collaborator->detail->address}}</strong></p>
                     <p>Zip code: <strong>{{$collaborator->detail->zip_code}}</strong></p>
-                    <p>City: <strong>{{$collaborator->detail->address}}</strong></p>
+                    <p>City: <strong>{{$collaborator->detail->city}}</strong></p>
                     <p>Phone: <strong>{{$collaborator->detail->phone}}</strong></p>
                     <p>Admission date: <strong>{{$collaborator->detail->admission_date}}</strong></p>
                     <p>Salary: <strong>{{$collaborator->detail->salary}} €</strong></p>

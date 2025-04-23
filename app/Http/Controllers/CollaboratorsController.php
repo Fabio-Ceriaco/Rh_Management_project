@@ -97,4 +97,16 @@ class CollaboratorsController extends Controller
 
         return redirect()->route('all-collaborators')->with('success', 'Collaborator restored successfully.');
     }
+
+    public function home(): View
+    {
+
+        if (!Gate::allows('user_collaborator')) {
+            abort(403, "You aren't authorized to access this page.");
+        }
+
+        $collaborator = User::with('detail', 'department')->find(Auth::user()->id);
+
+        return view('collaborators.show-details')->with('collaborator', $collaborator);
+    }
 }
