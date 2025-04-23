@@ -39,7 +39,7 @@
                                     <span class="badge bg-success">Yes</span>
                                 @endif
                             </td>
-                            <td>{{$collaborator->department->name }}</td>
+                            <td>{{$collaborator->department->name ?? " - " }}</td>
                             <td>{{$collaborator->role }}</td>
                             <td>{{$collaborator->detail->admission_date }}</td>
                             <td>{{ $collaborator->detail->salary }} €</td>
